@@ -1,0 +1,15 @@
+import api from './client';
+export const staffStatus    = () => api.get('/admin/staff').then((r) => r.data.data);
+export const staffDashboard = (id, year, month) => api.get(`/admin/staff/${id}/dashboard${year ? `?year=${year}&month=${month}` : ''}`).then((r) => r.data.data);
+export const staffTimeline  = (id, date) => api.get(`/admin/staff/${id}/timeline${date ? `?date=${date}` : ''}`).then((r) => r.data.data);
+export const staffAction    = (id, kind, date) => api.post(`/admin/staff/${id}/action`, { kind, date }).then((r) => r.data);
+export const editEventTime  = (id, which, date, time) => api.patch(`/admin/staff/${id}/event`, { which, date, time }).then((r) => r.data);
+export const staffTasks    = (id, date) => api.get(`/admin/staff/${id}/tasks${date ? `?date=${date}` : ''}`).then((r) => r.data.data);
+export const pendingTasks  = (id) => api.get(`/admin/staff/${id}/pending`).then((r) => r.data.data);
+export const approveTasks  = (id, date) => api.post(`/admin/staff/${id}/tasks/approve`, { date }).then((r) => r.data);
+export const declineTasks  = (id, date) => api.post(`/admin/staff/${id}/tasks/decline`, { date }).then((r) => r.data);
+export const listTasks   = () => api.get('/admin/tasks').then((r) => r.data.data);
+export const createTask  = (body) => api.post('/admin/tasks', body).then((r) => r.data);
+export const updateTask  = (id, body) => api.patch(`/admin/tasks/${id}`, body).then((r) => r.data);
+export const deleteTask  = (id) => api.delete(`/admin/tasks/${id}`).then((r) => r.data);
+export const setStaffRole  = (id, role) => api.patch(`/admin/staff/${id}/role`, { role }).then((r) => r.data);
